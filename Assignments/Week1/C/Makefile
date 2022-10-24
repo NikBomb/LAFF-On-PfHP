@@ -11,7 +11,7 @@ CFLAGS     := -O3 -I$(BLAS_INC) -m64 -mavx2 -std=c99 -march=native -fopenmp -D_P
 FFLAGS     := $(CFLAGS) 
 
 # set the range of experiments to be performed
-NREPEATS   := 3#      number of times each experiment is repeated.  The best time is reported.
+NREPEATS   := 5#      number of times each experiment is repeated.  The best time is reported.
 NFIRST     := 48#     smallest size to be timed.
 NLAST_SMALL:= 500#    largest size to be timed for slow implementations.
 NLAST      := 1500#   largest size to be timed for fast implementations.
@@ -29,8 +29,8 @@ driver_IJP.x: $(OBJS_IJP) $(UTIL_OBJS)
 	$(LINKER) $(OBJS_IJP) $(UTIL_OBJS) $(BLAS_LIB) -o driver_IJP.x $(LDFLAGS) 
 
 IJP: driver_IJP.x
-	echo "$(NREPEATS) $(NFIRST) $(NLAST_SMALL) $(NINC)" | ./driver_IJP.x > data/output_IJP.m 
-	tail data/output_IJP.m 
+	echo "$(NREPEATS) $(NFIRST) $(NLAST_SMALL) $(NINC)" | ./driver_IJP.x > data/output_IJP.py
+	tail data/output_IJP.py 
 
 # ---------------------
 

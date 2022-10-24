@@ -48,15 +48,15 @@ int main(int argc, char *argv[])
     *A, *B, *C, *Cold, *Cref;
 
   /* Every time trial is repeated "repeat" times and the fastest run is recorded */
-  printf( "%% number of repeats:" );
+  printf( "# number of repeats:" );
   scanf( "%d", &nrepeats );
-  printf( "%% %d\n", nrepeats );
+  printf( "# %d\n", nrepeats );
 
   /* Timing trials for matrix sizes m=n=k=first to last in increments
      of inc will be performed.  (Actually, we are going to go from
      largest to smallest since this seems to give more reliable 
      timings.  */
-  printf( "%% enter first, last, inc:" );
+  printf( "## enter first, last, inc:" );
   scanf( "%d%d%d", &first, &last, &inc );
 
   /* Adjust first and last so that they are multiples of inc */
@@ -64,11 +64,11 @@ int main(int argc, char *argv[])
   first = ( first / inc ) * inc;
   first = ( first == 0 ? inc : first );
   
-  printf( "%% %d %d %d \n", first, last, inc );
+  printf( "# %d %d %d \n", first, last, inc );
 
   printf( "data = [\n" );
-  printf( "%%  n          reference      |         current implementation \n" );
-  printf( "%%        time       GFLOPS   |    time       GFLOPS     diff \n" );
+  printf( "#  n          reference      |         current implementation \n" );
+  printf( "#        time       GFLOPS   |    time       GFLOPS     diff \n" );
   i = 1;
   for ( size=last; size>= first; size-=inc ){
     /* we will only time cases where all three matrices are square */
@@ -137,7 +137,7 @@ int main(int argc, char *argv[])
 	dtime_best = ( dtime < dtime_best ? dtime : dtime_best );
     }
   
-    printf( " %5d %8.4le %8.4le   ", n, dtime_best, gflops/dtime_best );
+    printf( " %5d, %8.4le, %8.4le,   ", n, dtime_best, gflops/dtime_best );
     fflush( stdout );  // We flush the output buffer because otherwise
 		       // it may throw the timings of a next
 		       // experiment.
@@ -166,7 +166,7 @@ int main(int argc, char *argv[])
     diff = MaxAbsDiff( m, n, C, ldC, Cref, ldC );
     maxdiff = ( diff > maxdiff ? diff : maxdiff );
     
-    printf( " %8.4le %8.4le %8.4le\n", dtime_best, gflops/dtime_best, diff  );
+    printf( " %8.4le, %8.4le, %8.4le,\n", dtime_best, gflops/dtime_best, diff  );
     fflush( stdout );  // We flush the output buffer because otherwise
 		       // it may throw the timings of a next
 		       // experiment.
@@ -181,7 +181,7 @@ int main(int argc, char *argv[])
     i++;
   }
   printf( "];\n\n" );
-  printf( "%% Maximum difference between reference and your implementation: %le.\n", maxdiff );
+  printf( "# Maximum difference between reference and your implementation: %le.\n", maxdiff );
   
   exit( 0 );
 }
